@@ -2,7 +2,6 @@ package com.jcmp.wifidirect.sample.wifidirect_sample;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.IntentFilter;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
@@ -28,7 +27,7 @@ public class MyWiFiActivity extends AppCompatActivity implements View.OnClickLis
 
 
     /**
-     * @param savedInstanceState
+     * @param savedInstanceState Instancia que llega
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +90,7 @@ public class MyWiFiActivity extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onFailure(int reasonCode) {
                         /*Discover fail*/
+                        //Hice un cambio
                     }
                 });
                 break;
