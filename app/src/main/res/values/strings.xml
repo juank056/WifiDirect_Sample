@@ -8,4 +8,12 @@
     <string name="no_device">No Device found on that position</string>
     <string name="name">Nombre:</string>
     <string name="address">Address:</string>
+    <string name="title_activity_chat">ChatActivity</string>
+    <string name="connected">Conectado!</string>
+    <string name="connected_failed">Conexión falló!</string>
+    <string name="set_text">Ingrese Texto...</string>
+    <string name="send">Enviar!</string>
+    <string name="me">Yo: </string>
+    <string name="partner">Mi Partner: </string>
+    <string name="init_peers_discovery">Inicia Descubrimiento Peers!</string>
 </resources>
