@@ -30,7 +30,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver {
      * Peer listener
      */
     private WifiP2pManager.PeerListListener myPeerListListener;
-    ;
+
 
     /**
      * Constructor del que recibe los broadcast
@@ -50,6 +50,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver {
             @Override
             public void onPeersAvailable(WifiP2pDeviceList peers) {
                 //Los peers están disponibles (Se debe actualizar la lista de peers en pantalla)
+                mActivity.setNewDevices(peers.getDeviceList());
             }
         };
     }

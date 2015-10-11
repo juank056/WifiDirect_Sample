@@ -15,4 +15,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/discover_peers"/>
+
+    <ListView
+        android:id="@+id/list_peers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"/>
 </LinearLayout>
