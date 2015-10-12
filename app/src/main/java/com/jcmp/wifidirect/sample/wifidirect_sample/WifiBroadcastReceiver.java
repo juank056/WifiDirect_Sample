@@ -34,7 +34,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver {
     private IntentFilter mIntentFilter;
 
     /**
-     * Actividad Wifi (Definida por programador)
+     * Actividad Wifi
      */
     private WifiDirectActivityInterface mActivity;
 
@@ -46,7 +46,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver {
     /**
      * Constructor del que recibe los broadcast
      */
-    public WifiBroadcastReceiver() {
+    private WifiBroadcastReceiver() {
         super();
         //Inicia myPeerListener
         myPeerListListener = new WifiP2pManager.PeerListListener() {
@@ -66,39 +66,34 @@ public class WifiBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        //Obtiene la acción del intent
         String action = intent.getAction();
-
-        if (WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION.equals(action)) {/*Cambia el estado*/
+        if (WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION.equals(action)) {/*Cambio de estado*/
             //Obtiene datos extra para saber si esta activo el wifi
             int state = intent.getIntExtra(WifiP2pManager.EXTRA_WIFI_STATE, -1);
-
             if (state == WifiP2pManager.WIFI_P2P_STATE_ENABLED) {/*Wifi Activo*/
-                // Wifi P2P is enabled
+                // Wifi P2P activado
                 mActivity.showMessageOnScreen("Wifi activo!");
             } else { /*Wifi Desactivado*/
-                // Wi-Fi P2P is not enabled
+                // Wi-Fi P2P no activado (Podría activarse)
                 mActivity.showMessageOnScreen("Wifi NO activo!");
             }
-        } else if (WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION.equals(action)) {
-            // request available peers from the wifi p2p manager. This is an
-            // asynchronous call and the calling activity is notified with a
-            // callback on PeerListListener.onPeersAvailable()
+        } else if (WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION.equals(action)) { /*Cambio de Peers*/
+            // Hubo un cambio con los peers
             if (mManager != null) {
                 mManager.requestPeers(mChannel, myPeerListListener);
             }
-        } else if (WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION.equals(action)) {
+        } else if (WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION.equals(action)) { /*Conectado o no*/
             //Obtiene informacion de Red
             NetworkInfo networkInfo = (NetworkInfo) intent
                     .getParcelableExtra(WifiP2pManager.EXTRA_NETWORK_INFO);
             //Revisa si esta conectado
-            if (networkInfo.isConnected()) {
-                // We are connected with the other device, request connection
-                // info to find group owner IP
-
+            if (networkInfo.isConnected()) {/*Conectado a otro dispositivo*/
+                //Obtiene información de la conexión
                 mManager.requestConnectionInfo(mChannel, mActivity);
             }
-        } else if (WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action)) {
-            // Respond to this device's wifi state changing
+        } else if (WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action)) { /*Cambio detalle Movil*/
+            /*Hacer algo si corresponde*/
         }
     }
 

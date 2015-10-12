@@ -9,7 +9,6 @@ import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -80,7 +79,8 @@ public class MyWiFiActivity extends AppCompatActivity implements WifiDirectActiv
     protected void onResume() {
         super.onResume();
         //Registra el broadcast receiver con el intent filter
-        registerReceiver(WifiBroadcastReceiver.getInstance(), WifiBroadcastReceiver.getInstance().getmIntentFilter());
+        registerReceiver(WifiBroadcastReceiver.getInstance(),
+                WifiBroadcastReceiver.getInstance().getmIntentFilter());
     }
 
     /* unregister the broadcast receiver */
@@ -98,10 +98,8 @@ public class MyWiFiActivity extends AppCompatActivity implements WifiDirectActiv
      */
     @Override
     public void onClick(View v) {
-        Log.d(Constants.DEBUG, "On click de MyWifiActivity");
         switch (v.getId()) {
             case R.id.b1:/*Descubir peers*/
-                Log.d(Constants.DEBUG, "Peers Discovery");
                 Toast.makeText(getApplicationContext(), R.string.init_peers_discovery, Toast
                         .LENGTH_SHORT).show();
                 WifiBroadcastReceiver.getInstance().getmManager().

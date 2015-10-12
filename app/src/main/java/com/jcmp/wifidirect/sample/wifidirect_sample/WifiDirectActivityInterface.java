@@ -15,21 +15,21 @@ public interface WifiDirectActivityInterface extends WifiP2pManager.ConnectionIn
      *
      * @param deviceList lista de dispositivos
      */
-    public void setNewDevices(Collection<WifiP2pDevice> deviceList);
+    void setNewDevices(Collection<WifiP2pDevice> deviceList);
 
     /**
      * Mostrar mensaje en pantalla
      *
      * @param message Mensaje a mostrar
      */
-    public void showMessageOnScreen(String message);
+    void showMessageOnScreen(String message);
 
     /**
      * Ingresa nuevo mensaje en el panel de mensajes
      *
      * @param message Mensaje a mostrar
      */
-    public void setNewMessageOnPanel(String message);
+    void setNewMessageOnPanel(String message);
 
 
 }
