@@ -214,15 +214,14 @@ public class MyWiFiActivity extends AppCompatActivity implements WifiDirectActiv
      */
     @Override
     public void onConnectionInfoAvailable(WifiP2pInfo info) {
+        //Mensaje de conexion disponible
+        this.showMessageOnScreen("Conectado con: " + info.groupOwnerAddress);
         //Crea intent para ir al chat
         Intent intent = new Intent(MyWiFiActivity.this, ChatActivity.class);
         //Adiciona device en los datos
-        intent.putExtra(Constants.DEVICE_NAME, info.groupOwnerAddress.getHostName());
+        intent.putExtra(Constants.DEVICE_NAME, "Peer");
         intent.putExtra(Constants.DEVICE_ADDR, info.groupOwnerAddress.getHostAddress());
         intent.putExtra(Constants.IS_SERVER, false);
-        //Mensaje de conexion disponible
-        this.showMessageOnScreen("Conectado con: " + info.groupOwnerAddress.getHostName() + ". " +
-                info.groupOwnerAddress.getHostAddress());
         //Inicia la actividad
         startActivity(intent);
     }
