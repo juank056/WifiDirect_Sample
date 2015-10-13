@@ -218,6 +218,8 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.send_button:/*Enviar mensaje*/
+                //No se aceptan comunicaciones como cliente en este punto
+                showMessageOnScreen("Se va a enviar un mensaje!");
                 //Mensaje a enviar
                 String text = messageSend.getText().toString();
                 //Trim al mensaje
