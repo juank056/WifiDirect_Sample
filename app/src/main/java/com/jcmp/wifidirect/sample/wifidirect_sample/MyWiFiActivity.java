@@ -71,6 +71,7 @@ public class MyWiFiActivity extends AppCompatActivity implements WifiDirectActiv
         WifiBroadcastReceiver.getInstance().setmIntentFilter(mIntentFilter);
         //Obtiene lista de Peers
         peers = (ListView) findViewById(R.id.list_peers);
+        peers.setOnItemClickListener(this);
         //Inicia lista de devices
         devices = new ArrayList<WifiP2pDevice>();
     }
@@ -136,24 +137,20 @@ public class MyWiFiActivity extends AppCompatActivity implements WifiDirectActiv
      */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        switch (view.getId()) {
-            case R.id.list_peers:/*Se le hizo click a un*/
-                //Obtiene posicion del device
-                WifiP2pDevice device = devices.get(position);
-                if (device != null) {/*Device encontrado*/
-                    //Crea intent para ir al chat
-                    Intent intent = new Intent(MyWiFiActivity.this, ChatActivity.class);
-                    //Adiciona device en los datos
-                    intent.putExtra(Constants.DEVICE_NAME, device.deviceName);
-                    intent.putExtra(Constants.DEVICE_ADDR, device.deviceAddress);
-                    intent.putExtra(Constants.IS_SERVER, true);
-                    //Inicia la actividad
-                    startActivity(intent);
-                } else {/*No existe el device*/
-                    Toast.makeText(getApplicationContext(), R.string.no_device, Toast
-                            .LENGTH_SHORT).show();
-                }
-                break;
+        //Obtiene posicion del device
+        WifiP2pDevice device = devices.get(position);
+        if (device != null) {/*Device encontrado*/
+            //Crea intent para ir al chat
+            Intent intent = new Intent(MyWiFiActivity.this, ChatActivity.class);
+            //Adiciona device en los datos
+            intent.putExtra(Constants.DEVICE_NAME, device.deviceName);
+            intent.putExtra(Constants.DEVICE_ADDR, device.deviceAddress);
+            intent.putExtra(Constants.IS_SERVER, true);
+            //Inicia la actividad
+            startActivity(intent);
+        } else {/*No existe el device*/
+            Toast.makeText(getApplicationContext(), R.string.no_device, Toast
+                    .LENGTH_SHORT).show();
         }
     }
 

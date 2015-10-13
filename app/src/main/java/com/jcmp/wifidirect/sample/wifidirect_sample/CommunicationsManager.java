@@ -219,7 +219,7 @@ public class CommunicationsManager extends Thread {
                     DataOutputStream messageStream = new DataOutputStream(
                             socketTCP.getOutputStream());
                     // Envia mensaje
-                    messageStream.write(message);
+                    messageStream.write(messageToSend);
                     // Realiza flush para forzar que se vaya el mensaje completo
                     messageStream.flush();
                 } catch (Exception e) {/*Error en envio de mensaje*/

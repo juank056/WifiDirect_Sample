@@ -25,6 +25,11 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
     private String device_name;
 
     /**
+     * Titulo chat
+     */
+    private TextView title;
+
+    /**
      * Direccion del dispositivo
      */
     private String device_address;
@@ -88,6 +93,10 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
         Button b = (Button) findViewById(R.id.send_button);
         //Registra boton para listener
         b.setOnClickListener(this);
+        //Titulo del chat
+        title = (TextView) findViewById(R.id.title);
+        //Asigna titulo
+        title.setText("Friend: " + device_name + " Address: " + device_address);
         //Obtiene texto de envio
         messageSend = (EditText) findViewById(R.id.send_text);
         //Panel de mensajes
@@ -165,6 +174,7 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
         InetAddress groupOwnerAddress = info.groupOwnerAddress;
         // Se determina si esta formado el grupo y el dueño
         if (info.groupFormed && info.isGroupOwner) {
+            showMessageOnScreen("Inicia conexion como group owner!");
             //Crea el communications manager
             communicator = new CommunicationsManager(this, isServer, info.groupOwnerAddress.getHostAddress());
             //Inicia la comunicacion entre ambos

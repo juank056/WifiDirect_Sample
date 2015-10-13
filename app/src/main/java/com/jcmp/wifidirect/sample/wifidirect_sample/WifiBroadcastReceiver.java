@@ -91,6 +91,8 @@ public class WifiBroadcastReceiver extends BroadcastReceiver {
             if (networkInfo.isConnected()) {/*Conectado a otro dispositivo*/
                 //Obtiene información de la conexión
                 mManager.requestConnectionInfo(mChannel, mActivity);
+            } else { /*Desconexión*/
+                //Cerrar sockets...por ejemplo
             }
         } else if (WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action)) { /*Cambio detalle Movil*/
             /*Hacer algo si corresponde*/
