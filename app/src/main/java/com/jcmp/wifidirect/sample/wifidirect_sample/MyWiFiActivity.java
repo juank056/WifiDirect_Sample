@@ -220,6 +220,9 @@ public class MyWiFiActivity extends AppCompatActivity implements WifiDirectActiv
         intent.putExtra(Constants.DEVICE_NAME, info.groupOwnerAddress.getHostName());
         intent.putExtra(Constants.DEVICE_ADDR, info.groupOwnerAddress.getHostAddress());
         intent.putExtra(Constants.IS_SERVER, false);
+        //Mensaje de conexion disponible
+        this.showMessageOnScreen("Conectado con: " + info.groupOwnerAddress.getHostName() + ". " +
+                info.groupOwnerAddress.getHostAddress());
         //Inicia la actividad
         startActivity(intent);
     }
