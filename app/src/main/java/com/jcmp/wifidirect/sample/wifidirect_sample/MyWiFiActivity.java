@@ -208,6 +208,16 @@ public class MyWiFiActivity extends AppCompatActivity implements WifiDirectActiv
     }
 
     /**
+     * Asignar mensaje de texto
+     *
+     * @param messageText mensaje de texto
+     */
+    @Override
+    public void setMessageText(String messageText) {
+        /*No hace nada*/
+    }
+
+    /**
      * The requested connection info is available
      *
      * @param info Wi-Fi p2p connection info

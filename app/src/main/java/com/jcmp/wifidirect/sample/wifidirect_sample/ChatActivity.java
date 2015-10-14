@@ -8,6 +8,7 @@ import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -63,6 +64,12 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
      * Mensaje a enviar
      */
     private EditText messageSend;
+
+    /**
+     * Message test
+     */
+    private String messageText;
+
 
     /**
      * Creacion de la actividad
@@ -204,10 +211,15 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
      */
     @Override
     public void setNewMessageOnPanel(String message) {
-        //Pone mensaje en el panel de mensajes
-        String panel = messagePanel.getText().toString();
-        panel += getResources().getString(R.string.partner) + message + "\n";
-        messagePanel.setText(panel);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //Pone mensaje en el panel de mensajes
+                String panel = messagePanel.getText().toString();
+                panel += getResources().getString(R.string.partner) + messageText + "\n";
+                messagePanel.setText(panel);
+            }
+        });
     }
 
     /**
@@ -242,5 +254,16 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
                 messageSend.setText(Constants.BLANKS);
                 break;
         }
+    }
+
+    /**
+     * Asigna mensaje de texto
+     *
+     * @param messageText mensaje de texto
+     */
+    public void setMessageText(String messageText) {
+        Log.d(Constants.DEBUG, "ASIGNANDO MENSAJE: " + messageText);
+        this.messageText = messageText;
+        Log.d(Constants.DEBUG, "MENSAJE ASIGNADO: " + messageText);
     }
 }
