@@ -251,10 +251,9 @@ public class CommunicationsManager extends Thread {
          */
 
         public void run() {
-            //Lee de la cola mientras no tenga shutdown
-            while (!isShutdown) {
-                //Lee mensaje a enviar
-                try {
+            try {
+                //Lee de la cola mientras no tenga shutdown
+                while (!isShutdown) {
                     //Revisa conexion
                     checkConnection();
                     //Obtiene mensaje
@@ -271,12 +270,12 @@ public class CommunicationsManager extends Thread {
                     messageStream.write(messageToSend);
                     // Realiza flush para forzar que se vaya el mensaje completo
                     messageStream.flush();
-                } catch (Exception e) {/*Error en envio de mensaje*/
-                    e.printStackTrace();
-                } finally {
-                    //Cierra conexion
-                    closeConnection();
                 }
+            } catch (Exception e) {/*Error en envio de mensaje*/
+                e.printStackTrace();
+            } finally {
+                //Cierra conexion
+                closeConnection();
             }
         }
     }
