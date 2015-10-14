@@ -87,24 +87,15 @@ public class CommunicationsManager extends Thread {
         try {
             //Started true
             this.started = true;
-            //Inicia conexion
-            if (isServer) {
-                // Crea server socket
-                serverTCP = new ServerSocket(Constants.CONNECTION_PORT);
-                //Inicia accept (para una unica conexion)
-                socketTCP = serverTCP.accept();
-
-            } else {/*Es cliente*/
-                //Inicia socket con el servidor
-                socketTCP = new Socket(serverAddress, Constants.CONNECTION_PORT);
-            }
             //Inicia el output router
             outputRouter.start();
             /*En este punto la conexion esta establecida*/
             //Coloca mensaje en pantalla
-            activity.showMessageOnScreen("LA CONEXIÓN HA SIDO INICIADA!");
+            //activity.showMessageOnScreen("LA CONEXIÓN HA SIDO INICIADA!");
             //Lee mensajes mientras no haya shutdown
             while (!isShutdown) {
+                //Revisa conexion
+                checkConnection();
                 // Lee los bytes para obtener el tamano
                 byte[] mLength = new byte[4];
                 socketTCP.getInputStream().read(mLength);
@@ -129,18 +120,45 @@ public class CommunicationsManager extends Thread {
             socketTCP.close();
         } catch (IOException e) {/*Ocurrio error*/
             e.printStackTrace();
-            activity.showMessageOnScreen("ERROR. Run Communications Manager: " + e.getMessage());
         } finally {/*Finalmente cerrar conexion*/
-            try {
-                //Cierra conexion
-                socketTCP.close();
-                //Intenta cerrar socket
-                if (serverTCP != null) {
-                    serverTCP.close();
-                }
-            } catch (IOException e1) {
-                e1.printStackTrace();
+            //Cierra  conexion
+            closeConnection();
+        }
+    }
+
+    /**
+     * Revisa conexion
+     *
+     * @throws IOException Error en conexion
+     */
+    private void checkConnection() throws IOException {
+        //Inicia conexion
+        if (isServer) {
+            if (serverTCP == null || serverTCP.isClosed()) {
+                // Crea server socket
+                serverTCP = new ServerSocket(Constants.CONNECTION_PORT);
+                //Inicia accept (para una unica conexion)
+                socketTCP = serverTCP.accept();
             }
+        } else {/*Es cliente*/
+            if (socketTCP == null || socketTCP.isClosed()) {
+                //Inicia socket con el servidor
+                socketTCP = new Socket(serverAddress, Constants.CONNECTION_PORT);
+            }
+        }
+    }
+
+    private void closeConnection() {
+        try {
+            //Cierra conexion
+            if (socketTCP != null)
+                socketTCP.close();
+            //Intenta cerrar socket
+            if (serverTCP != null) {
+                serverTCP.close();
+            }
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
     }
 
@@ -237,6 +255,8 @@ public class CommunicationsManager extends Thread {
             while (!isShutdown) {
                 //Lee mensaje a enviar
                 try {
+                    //Revisa conexion
+                    checkConnection();
                     //Obtiene mensaje
                     byte[] message = outputMessages.take();
                     //Obtiene longitud del mensaje
@@ -253,18 +273,9 @@ public class CommunicationsManager extends Thread {
                     messageStream.flush();
                 } catch (Exception e) {/*Error en envio de mensaje*/
                     e.printStackTrace();
-                    activity.showMessageOnScreen("ERROR. Run Output Router: " + e.getMessage());
                 } finally {
-                    try {
-                        //Cierra conexion
-                        socketTCP.close();
-                        //Intenta cerrar socket
-                        if (serverTCP != null) {
-                            serverTCP.close();
-                        }
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
+                    //Cierra conexion
+                    closeConnection();
                 }
             }
         }
