@@ -219,6 +219,10 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.send_button:/*Enviar mensaje*/
+                //Revisa si ya esta iniciado el communicador
+                if (!communicator.isStarted())
+                    //Inicia la comunicacion entre ambos
+                    communicator.start();
                 //No se aceptan comunicaciones como cliente en este punto
                 showMessageOnScreen("Se va a enviar un mensaje!");
                 //Mensaje a enviar
@@ -234,7 +238,8 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
                     panel += getResources().getString(R.string.me) + text + "\n";
                     messagePanel.setText(panel);
                 }
-
+                //blanquea mensaje
+                messageSend.setText(Constants.BLANKS);
                 break;
         }
     }
