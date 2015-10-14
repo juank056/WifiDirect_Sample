@@ -145,7 +145,7 @@ public class MyWiFiActivity extends AppCompatActivity implements WifiDirectActiv
             //Adiciona device en los datos
             intent.putExtra(Constants.DEVICE_NAME, device.deviceName);
             intent.putExtra(Constants.DEVICE_ADDR, device.deviceAddress);
-            intent.putExtra(Constants.IS_SERVER, false);
+            intent.putExtra(Constants.IS_SERVER, true);
             //Inicia la actividad
             startActivity(intent);
         } else {/*No existe el device*/
@@ -221,7 +221,7 @@ public class MyWiFiActivity extends AppCompatActivity implements WifiDirectActiv
         //Adiciona device en los datos
         intent.putExtra(Constants.DEVICE_NAME, "Peer");
         intent.putExtra(Constants.DEVICE_ADDR, info.groupOwnerAddress.getHostAddress());
-        intent.putExtra(Constants.IS_SERVER, true);
+        intent.putExtra(Constants.IS_SERVER, false);
         //Inicia la actividad
         startActivity(intent);
     }

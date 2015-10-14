@@ -109,7 +109,7 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
         //Crea el communications manager
         communicator = new CommunicationsManager(this, isServer, device_address);
         //Se inicia la parte de conexion solo si es server
-        if (!isServer) {
+        if (isServer) {
             //Se trata de conectar
             WifiP2pConfig config = new WifiP2pConfig();
             //Asigna la direccion para conectar
@@ -128,7 +128,7 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
                             .LENGTH_SHORT).show();
                 }
             });
-        } else {/*Es Servidor*/
+        } else {/*Es Cliente*/
             //Revisa si ya esta iniciado el communicador
             if (!communicator.isStarted())
                 //Inicia la comunicacion entre ambos
@@ -180,6 +180,10 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
             //No se aceptan comunicaciones como cliente en este punto
             showMessageOnScreen("No se aceptan conexiones como cliente aqui!");
         }
+        //Revisa si ya esta iniciado el communicador
+        if (!communicator.isStarted())
+            //Inicia la comunicacion entre ambos
+            communicator.start();
     }
 
     /**
@@ -217,10 +221,6 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
             case R.id.send_button:/*Enviar mensaje*/
                 //No se aceptan comunicaciones como cliente en este punto
                 showMessageOnScreen("Se va a enviar un mensaje!");
-                //Revisa si ya esta iniciado el communicador
-                if (!communicator.isStarted())
-                    //Inicia la comunicacion entre ambos
-                    communicator.start();
                 //Mensaje a enviar
                 String text = messageSend.getText().toString();
                 //Trim al mensaje

@@ -95,7 +95,7 @@ public class CommunicationsManager extends Thread {
             //Lee mensajes mientras no haya shutdown
             while (!isShutdown) {
                 //Revisa conexion
-                checkConnection();
+                checkConnection(0);
                 // Lee los bytes para obtener el tamano
                 byte[] mLength = new byte[4];
                 socketTCP.getInputStream().read(mLength);
@@ -131,22 +131,34 @@ public class CommunicationsManager extends Thread {
      *
      * @throws IOException Error en conexion
      */
-    private void checkConnection() throws IOException {
-        //Inicia conexion
-        if (isServer) {
-            if (serverTCP == null || serverTCP.isClosed()) {
-                // Crea server socket
-                serverTCP = new ServerSocket(Constants.CONNECTION_PORT);
-                //Inicia accept (para una unica conexion)
-                socketTCP = serverTCP.accept();
+    private void checkConnection(int n) throws IOException {
+        try {
+            //Inicia conexion
+            if (isServer) {
+                if (serverTCP == null || serverTCP.isClosed()) {
+                    // Crea server socket
+                    serverTCP = new ServerSocket(Constants.CONNECTION_PORT);
+                    //Inicia accept (para una unica conexion)
+                    socketTCP = serverTCP.accept();
+                }
+            } else {/*Es cliente*/
+                if (socketTCP == null || socketTCP.isClosed()) {
+                    //Inicia socket con el servidor
+                    socketTCP = new Socket(serverAddress, Constants.CONNECTION_PORT);
+                }
             }
-        } else {/*Es cliente*/
-            if (socketTCP == null || socketTCP.isClosed()) {
-                //Inicia socket con el servidor
-                socketTCP = new Socket(serverAddress, Constants.CONNECTION_PORT);
+        } catch (Exception e) {
+            if (n == 0) {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+                checkConnection(1);
             }
         }
     }
+
 
     private void closeConnection() {
         try {
@@ -255,7 +267,7 @@ public class CommunicationsManager extends Thread {
                 //Lee de la cola mientras no tenga shutdown
                 while (!isShutdown) {
                     //Revisa conexion
-                    checkConnection();
+                    checkConnection(0);
                     //Obtiene mensaje
                     byte[] message = outputMessages.take();
                     //Obtiene longitud del mensaje
