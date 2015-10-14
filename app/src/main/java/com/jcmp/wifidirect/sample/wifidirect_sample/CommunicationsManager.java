@@ -89,6 +89,8 @@ public class CommunicationsManager extends Thread {
         try {
             //Started true
             this.started = true;
+            //Revisa conexion
+            checkConnection(0);
             //Inicia el output router
             outputRouter.start();
             /*En este punto la conexion esta establecida*/
@@ -135,6 +137,7 @@ public class CommunicationsManager extends Thread {
      */
     private void checkConnection(int n) throws IOException {
         try {
+            Log.d(Constants.DEBUG, "INICIA CHECK DE CONEXION!!");
             //Inicia conexion
             if (isServer) {
                 if (serverTCP == null || serverTCP.isClosed()) {
@@ -149,6 +152,7 @@ public class CommunicationsManager extends Thread {
                     socketTCP = new Socket(serverAddress, Constants.CONNECTION_PORT);
                 }
             }
+            Log.d(Constants.DEBUG, "CHECK DE CONEXION OK!!");
         } catch (Exception e) {
             if (n == 0) {
                 try {
