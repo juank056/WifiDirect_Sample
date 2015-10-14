@@ -1,7 +1,5 @@
 package com.jcmp.wifidirect.sample.wifidirect_sample;
 
-import android.util.Log;
-
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -119,8 +117,19 @@ public class CommunicationsManager extends Thread {
             //Cierra socket
             socketTCP.close();
         } catch (IOException e) {/*Ocurrio error*/
-            Log.e(Constants.ERROR, e.getMessage());
+            e.printStackTrace();
             activity.showMessageOnScreen("ERROR. Run Communications Manager: " + e.getMessage());
+        } finally {/*Finalmente cerrar conexion*/
+            try {
+                //Cierra conexion
+                socketTCP.close();
+                //Intenta cerrar socket
+                if (serverTCP != null) {
+                    serverTCP.close();
+                }
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -223,8 +232,19 @@ public class CommunicationsManager extends Thread {
                     // Realiza flush para forzar que se vaya el mensaje completo
                     messageStream.flush();
                 } catch (Exception e) {/*Error en envio de mensaje*/
-                    Log.e(Constants.ERROR, e.getMessage());
+                    e.printStackTrace();
                     activity.showMessageOnScreen("ERROR. Run Output Router: " + e.getMessage());
+                } finally {
+                    try {
+                        //Cierra conexion
+                        socketTCP.close();
+                        //Intenta cerrar socket
+                        if (serverTCP != null) {
+                            serverTCP.close();
+                        }
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
                 }
             }
         }
