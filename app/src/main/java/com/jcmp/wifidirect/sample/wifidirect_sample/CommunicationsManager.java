@@ -1,5 +1,7 @@
 package com.jcmp.wifidirect.sample.wifidirect_sample;
 
+import android.util.Log;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -161,6 +163,7 @@ public class CommunicationsManager extends Thread {
 
 
     private void closeConnection() {
+        Log.d(Constants.DEBUG, "CERRANDO CONEXION!!");
         try {
             //Cierra conexion
             if (socketTCP != null)
@@ -282,6 +285,7 @@ public class CommunicationsManager extends Thread {
                     messageStream.write(messageToSend);
                     // Realiza flush para forzar que se vaya el mensaje completo
                     messageStream.flush();
+                    Log.d(Constants.DEBUG, "MENSAJE HA SIDO ENVIADO!!");
                 }
             } catch (Exception e) {/*Error en envio de mensaje*/
                 e.printStackTrace();
