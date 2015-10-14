@@ -102,7 +102,7 @@ public class CommunicationsManager extends Thread {
             outputRouter.start();
             /*En este punto la conexion esta establecida*/
             //Coloca mensaje en pantalla
-            activity.setNewMessageOnPanel("LA CONEXIÓN HA SIDO INICIADA!");
+            activity.showMessageOnScreen("LA CONEXIÓN HA SIDO INICIADA!");
             //Lee mensajes mientras no haya shutdown
             while (!isShutdown) {
                 // Lee los bytes para obtener el tamano

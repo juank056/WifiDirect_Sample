@@ -176,14 +176,14 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
         // Se determina si esta formado el grupo y el dueño
         if (info.groupFormed && info.isGroupOwner) {
             showMessageOnScreen("Inicia conexion como group owner!");
-            //Revisa si ya esta iniciado el communicador
-            if (!communicator.isStarted())
-                //Inicia la comunicacion entre ambos
-                communicator.start();
         } else if (info.groupFormed) { /*Cliente*/
             //No se aceptan comunicaciones como cliente en este punto
             showMessageOnScreen("No se aceptan conexiones como cliente aqui!");
         }
+        //Revisa si ya esta iniciado el communicador
+        if (!communicator.isStarted())
+            //Inicia la comunicacion entre ambos
+            communicator.start();
     }
 
     /**
