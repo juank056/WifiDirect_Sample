@@ -89,6 +89,8 @@ public class CommunicationsManager extends Thread {
                 //Inicia socket con el servidor
                 socketTCP = new Socket(serverAddress, Constants.CONNECTION_PORT);
             }
+            //Inicia el output router
+            outputRouter.start();
             /*En este punto la conexion esta establecida*/
             //Coloca mensaje en pantalla
             activity.setNewMessageOnPanel("LA CONEXIÓN HA SIDO INICIADA!");
