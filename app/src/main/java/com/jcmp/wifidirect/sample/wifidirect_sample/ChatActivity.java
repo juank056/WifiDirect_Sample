@@ -106,6 +106,8 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
         //Obtiene manager y channel
         mManager = WifiBroadcastReceiver.getInstance().getmManager();
         mChannel = WifiBroadcastReceiver.getInstance().getmChannel();
+        //Crea el communications manager
+        communicator = new CommunicationsManager(this, isServer, device_address);
         //Se inicia la parte de conexion solo si es server
         if (isServer) {
             //Se trata de conectar
@@ -127,11 +129,10 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
                 }
             });
         } else {/*Es cliente*/
-            //Inicia conexion como cliente
-            //Crea el communications manager
-            communicator = new CommunicationsManager(this, isServer, device_address);
-            //Inicia la comunicacion entre ambos
-            communicator.start();
+            //Revisa si ya esta iniciado el communicador
+            if (!communicator.isStarted())
+                //Inicia la comunicacion entre ambos
+                communicator.start();
         }
     }
 
@@ -175,10 +176,10 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
         // Se determina si esta formado el grupo y el dueño
         if (info.groupFormed && info.isGroupOwner) {
             showMessageOnScreen("Inicia conexion como group owner!");
-            //Crea el communications manager
-            communicator = new CommunicationsManager(this, isServer, info.groupOwnerAddress.getHostAddress());
-            //Inicia la comunicacion entre ambos
-            communicator.start();
+            //Revisa si ya esta iniciado el communicador
+            if (!communicator.isStarted())
+                //Inicia la comunicacion entre ambos
+                communicator.start();
         } else if (info.groupFormed) { /*Cliente*/
             //No se aceptan comunicaciones como cliente en este punto
             showMessageOnScreen("No se aceptan conexiones como cliente aqui!");

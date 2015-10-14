@@ -53,6 +53,11 @@ public class CommunicationsManager extends Thread {
      */
     private OutputRouter outputRouter;
 
+    /**
+     * Indicador de iniciado
+     */
+    private boolean started;
+
 
     /**
      * Constructor del communications manager
@@ -70,6 +75,8 @@ public class CommunicationsManager extends Thread {
         outputMessages = new LinkedBlockingQueue<byte[]>();
         //Crea el output router
         outputRouter = new OutputRouter();
+        //Started false
+        this.started = false;
     }
 
     /**
@@ -78,6 +85,8 @@ public class CommunicationsManager extends Thread {
     @Override
     public void run() {
         try {
+            //Started true
+            this.started = true;
             //Inicia conexion
             if (isServer) {
                 // Crea server socket
@@ -133,6 +142,15 @@ public class CommunicationsManager extends Thread {
                 e1.printStackTrace();
             }
         }
+    }
+
+    /**
+     * Retorna indicador de iniciado
+     *
+     * @return Indicador de thread iniciado
+     */
+    public boolean isStarted() {
+        return started;
     }
 
     /**
