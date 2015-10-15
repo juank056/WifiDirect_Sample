@@ -1,14 +1,14 @@
 <resources>
-    <string name="app_name">WifiDirect_Sample</string>
+    <string name="app_name">WifiDirect Sample</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_my_wi_fi">MyWiFiActivity</string>
+    <string name="title_activity_my_wi_fi">Wi-Fi Direct Sample</string>
     <string name="discover_peers">Discover Peers</string>
     <string name="peers_discovered">Peers Discovered Successfully!</string>
     <string name="peers_discovered_failed">Discovering Peers Failed!</string>
     <string name="no_device">No Device found on that position</string>
     <string name="name">Nombre:</string>
     <string name="address">Address:</string>
-    <string name="title_activity_chat">ChatActivity</string>
+    <string name="title_activity_chat">Chat con Partner</string>
     <string name="connected">Conectado!</string>
     <string name="connected_failed">Conexión falló!</string>
     <string name="set_text">Ingrese Texto...</string>
