@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.net.InetAddress;
 import java.util.Collection;
 
 public class ChatActivity extends AppCompatActivity implements WifiDirectActivityInterface, View.OnClickListener {
@@ -177,8 +176,6 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
      */
     @Override
     public void onConnectionInfoAvailable(WifiP2pInfo info) {
-        // InetAddress from WifiP2pInfo struct.
-        InetAddress groupOwnerAddress = info.groupOwnerAddress;
         // Se determina si esta formado el grupo y el dueño
         if (info.groupFormed && info.isGroupOwner) {
             showMessageOnScreen("Inicia conexion como group owner!");
