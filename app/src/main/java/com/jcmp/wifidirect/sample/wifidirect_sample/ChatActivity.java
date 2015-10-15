@@ -8,7 +8,6 @@ import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -200,8 +199,17 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
      */
     @Override
     public void showMessageOnScreen(String message) {
-        Toast.makeText(getApplicationContext(), message, Toast
-                .LENGTH_SHORT).show();
+        //Asigna mensaje a atributo
+        this.messageText = message;
+        //Coloca mensaje en pantalla en thread principal
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), messageText, Toast
+                        .LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     /**
@@ -211,6 +219,9 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
      */
     @Override
     public void setNewMessageOnPanel(String message) {
+        //Asigna mensaje a atributo
+        this.messageText = message;
+        //Coloca mensaje en pantalla en thread principal
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -235,8 +246,6 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
                 if (!communicator.isStarted())
                     //Inicia la comunicacion entre ambos
                     communicator.start();
-                //No se aceptan comunicaciones como cliente en este punto
-                showMessageOnScreen("Se va a enviar un mensaje!");
                 //Mensaje a enviar
                 String text = messageSend.getText().toString();
                 //Trim al mensaje
@@ -254,16 +263,5 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
                 messageSend.setText(Constants.BLANKS);
                 break;
         }
-    }
-
-    /**
-     * Asigna mensaje de texto
-     *
-     * @param messageText mensaje de texto
-     */
-    public void setMessageText(String messageText) {
-        Log.d(Constants.DEBUG, "ASIGNANDO MENSAJE: " + messageText);
-        this.messageText = messageText;
-        Log.d(Constants.DEBUG, "MENSAJE ASIGNADO: " + messageText);
     }
 }
