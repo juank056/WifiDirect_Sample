@@ -114,6 +114,7 @@ public class CommunicationsManager extends Thread {
                     String messageText = new String(message);
                     //Imprime con log
                     Log.d(Constants.DEBUG, "MENSAJE RECIBIDO: " + messageText);
+                    activity.setMessageText(messageText);
                     //Coloca mensaje en pantalla
                     activity.setNewMessageOnPanel(messageText);
                 }

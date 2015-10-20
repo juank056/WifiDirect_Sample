@@ -31,4 +31,11 @@ public interface WifiDirectActivityInterface extends WifiP2pManager.ConnectionIn
      */
     void setNewMessageOnPanel(String message);
 
+    /**
+     * Asigna mensaje de text
+     *
+     * @param messageText Mensaje de texto
+     */
+    void setMessageText(String messageText);
+
 }

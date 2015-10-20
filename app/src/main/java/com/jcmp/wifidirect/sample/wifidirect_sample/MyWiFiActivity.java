@@ -226,4 +226,13 @@ public class MyWiFiActivity extends AppCompatActivity implements WifiDirectActiv
         //Inicia la actividad
         startActivity(intent);
     }
+
+    /**
+     * Asigna mensaje de text
+     *
+     * @param messageText Mensaje de texto
+     */
+    public void setMessageText(String messageText) {
+        // this.messageText = messageText;
+    }
 }

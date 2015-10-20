@@ -63,6 +63,7 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
      */
     private EditText messageSend;
 
+
     /**
      * Message test
      */
@@ -197,7 +198,7 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
     @Override
     public void showMessageOnScreen(String message) {
         //Asigna mensaje a atributo
-        this.messageText = message;
+        //this.messageText = message;
         //Coloca mensaje en pantalla en thread principal
         runOnUiThread(new Runnable() {
             @Override
@@ -210,6 +211,15 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
     }
 
     /**
+     * Asigna mensaje de text
+     *
+     * @param messageText Mensaje de texto
+     */
+    public void setMessageText(String messageText) {
+        this.messageText = messageText;
+    }
+
+    /**
      * Ingresa nuevo mensaje en el panel de mensajes
      *
      * @param message Mensaje a mostrar
@@ -217,7 +227,7 @@ public class ChatActivity extends AppCompatActivity implements WifiDirectActivit
     @Override
     public void setNewMessageOnPanel(String message) {
         //Asigna mensaje a atributo
-        this.messageText = message;
+        //this.messageText = message;
         //Coloca mensaje en pantalla en thread principal
         runOnUiThread(new Runnable() {
             @Override
